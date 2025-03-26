@@ -7,7 +7,7 @@ import { errorHandler, notFoundHandler } from "./middleware/error.middleware";
 
 const app: express.Application = express();
 
-// Apply middleware
+// Applying middleware
 app.use(helmet()); // Security headers
 app.use(cors()); // CORS handling
 app.use(morgan("dev")); // Request logging
