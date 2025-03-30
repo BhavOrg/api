@@ -58,6 +58,9 @@ export const register = async (
       expiresAt
     );
 
+    // Adding trusted devices
+    await sessionModel.addTrustedDevice(user.user_id, deviceFingerprint);
+
     // Generating JWT
     const token = generateToken({
       user_id: user.user_id,
@@ -124,6 +127,8 @@ export const loginWithPassword = async (
     // Get device info
     const deviceInfo = extractDeviceInfo(req);
     const deviceFingerprint = generateDeviceFingerprint(deviceInfo);
+    console.log("Login attempt - User ID:", user.user_id);
+    console.log("Login attempt - Device Fingerprint:", deviceFingerprint);
 
     // Checking if device is familiar
     const existingSession = await sessionModel.findSessionByDevice(
@@ -132,6 +137,9 @@ export const loginWithPassword = async (
     );
 
     const isNewDevice = !existingSession;
+
+    console.log("Existing session:", existingSession);
+    console.log("Is new device:", isNewDevice);
 
     // If new device, requiring passphrase login instead
     if (isNewDevice) {
@@ -150,6 +158,9 @@ export const loginWithPassword = async (
       ipAddress,
       expiresAt
     );
+
+    // Add or update the trusted device entry
+    await sessionModel.addTrustedDevice(user.user_id, deviceFingerprint);
 
     // Updating last login time
     await userModel.updateLastLogin(user.user_id);
