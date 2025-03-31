@@ -39,9 +39,6 @@ export const findSessionByDevice = async (
   userId: string,
   deviceFingerprint: string
 ): Promise<Session | null> => {
-  console.log("********************");
-  console.log(deviceFingerprint);
-  console.log("********************");
   const result = await query(
     `SELECT * FROM sessions 
      WHERE user_id = $1 
@@ -50,8 +47,6 @@ export const findSessionByDevice = async (
      LIMIT 1`,
     [userId, deviceFingerprint]
   );
-
-  console.log(result.rows[0]);
 
   return (result.rows[0] as Session) || null;
 };

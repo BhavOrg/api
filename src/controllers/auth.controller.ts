@@ -127,8 +127,6 @@ export const loginWithPassword = async (
     // Get device info
     const deviceInfo = extractDeviceInfo(req);
     const deviceFingerprint = generateDeviceFingerprint(deviceInfo);
-    console.log("Login attempt - User ID:", user.user_id);
-    console.log("Login attempt - Device Fingerprint:", deviceFingerprint);
 
     // Checking if device is familiar
     const existingSession = await sessionModel.findSessionByDevice(
@@ -137,9 +135,6 @@ export const loginWithPassword = async (
     );
 
     const isNewDevice = !existingSession;
-
-    console.log("Existing session:", existingSession);
-    console.log("Is new device:", isNewDevice);
 
     // If new device, requiring passphrase login instead
     if (isNewDevice) {
