@@ -27,4 +27,25 @@ export const config = {
     saltRounds: 10,
     sessionTimeout: 86400000, // 24 hours in milliseconds
   },
+
+  // Sentiment analysis API configuration
+  sentimentApi: {
+    url: process.env.SENTIMENT_API_URL,
+    apiKey: process.env.SENTIMENT_API_KEY,
+    timeout: 5000, // 5 seconds timeout for API calls
+  },
+
+  // Feed settings
+  feed: {
+    defaultPageSize: 10,
+    maxPageSize: 50,
+    cacheTime: 300, // 5 minutes in seconds
+  },
+
+  // Content moderation settings
+  moderation: {
+    enabled: process.env.ENABLE_MODERATION === "true",
+    apiUrl: process.env.MODERATION_API_URL,
+    apiKey: process.env.MODERATION_API_KEY,
+  },
 };

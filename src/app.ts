@@ -3,6 +3,9 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes";
+import postRoutes from "./routes/post.routes";
+import commentRoutes from "./routes/comment.routes";
+import notificationRoutes from "./routes/notification.routes";
 import { errorHandler, notFoundHandler } from "./middleware/error.middleware";
 
 const app: express.Application = express();
@@ -16,6 +19,9 @@ app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Apply routes
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 // API health check endpoint
 app.get("/api/health", (req, res) => {
